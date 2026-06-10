@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContrataRadar – Contrataciones públicas Perú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-main: #020D29;
+    --bg-panel: #0A1838;
+    --bg-panel-soft: #101B3D;
+    --cyan: #00D8FF;
+    --blue: #008CFF;
+    --purple: #B23CFF;
+    --orange: #FF9E00;
+    --green: #20D67A;
+    --text-main: #F2F4FA;
+    --text-muted: #AEB7D5;
+    --border-soft: rgba(0, 216, 255, 0.28);
+    --border-glow: 0 0 16px rgba(0, 216, 255, 0.2);
+    --font-d: "Archivo", system-ui, sans-serif;
+    --font-m: "IBM Plex Mono", monospace;
+  }
+
+  body.light-mode {
+    --bg-main: #F4F6FC;
+    --bg-panel: #FFFFFF;
+    --bg-panel-soft: #EBF0FA;
+    --cyan: #0096B3;
+    --blue: #0066CC;
+    --purple: #8B2CD9;
+    --orange: #CC7A00;
+    --green: #179E59;
+    --text-main: #0F172A;
+    --text-muted: #475569;
+    --border-soft: rgba(0, 102, 204, 0.15);
+    --border-glow: 0 4px 16px rgba(0, 102, 204, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-d);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Desktop single viewport layout */
+  @media (min-width: 1024px) {
+    body {
+      height: 100dvh;
+      overflow: hidden;
+    }
+  }
+
+  a {
+    color: var(--cyan);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  a:hover {
+    color: var(--blue);
+  }
+
+  /* Header / Topbar */
+  .topbar {
+    flex-shrink: 0;
+    height: 60px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    justify-content: space-between;
+    z-index: 100;
+    box-shadow: var(--border-glow);
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-m);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid var(--border-soft);
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: var(--text-main);
+    background: rgba(0, 216, 255, 0.05);
+    transition: all 0.2s;
+  }
+
+  .back-link:hover {
+    border-color: var(--cyan);
+    box-shadow: 0 0 8px rgba(0, 216, 255, 0.25);
+    transform: translateX(-2px);
+    color: var(--cyan);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--text-main);
+  }
+  .brand span {
+    color: var(--cyan);
+  }
+
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-family: var(--font-m);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .brand-badge .flag {
+    font-size: 0.8rem;
+  }
+
+  .slogan {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    border-left: 1px solid var(--border-soft);
+    padding-left: 12px;
+    margin-left: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .slogan {
+      display: none;
+    }
+  }
+
+  /* Top Nav Menu */
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-btn {
+    font-family: var(--font-d);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-btn:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-btn.active {
+    color: var(--text-main);
+    background: rgba(0, 216, 255, 0.1);
+    border-color: var(--border-soft);
+    box-shadow: 0 0 10px rgba(0, 216, 255, 0.15);
+  }
+
+  .nav-cta {
+    font-family: var(--font-m);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 6px 12px;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    box-shadow: 0 0 8px rgba(0, 216, 255, 0.2);
+  }
+
+  @media (max-width: 800px) {
+    nav {
+      display: none;
+    }
+  }
+
+  /* Light/Dark Mode Switch */
+  .mode-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-m);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .mode-switch .mode-label {
+    transition: color 0.2s;
+  }
+
+  .mode-switch .active-label {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 18px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-panel-soft);
+    border: 1px solid var(--border-soft);
+    transition: .3s;
+    border-radius: 18px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 10px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--cyan);
+    transition: .3s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(18px);
+    background-color: var(--purple);
+  }
+
+  /* Main Container */
+  .dashboard-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 24px;
+    gap: 16px;
+    min-height: 0; /* Limit height to flex parent */
+  }
+
+  @media (max-width: 1023px) {
+    .dashboard-container {
+      overflow-y: auto;
+    }
+  }
+
+  /* Row 1: Overview Panel & Panorama Nacional */
+  .row-overview {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 18px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 1023px) {
+    .row-overview {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Hero Section */
+  .hero-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: var(--border-glow);
+  }
+
+  .hero-card .category-tag {
+    font-family: var(--font-m);
+    font-size: 0.68rem;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .hero-card h1 {
+    font-size: 1.85rem;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .hero-card h1 span {
+    color: var(--cyan);
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero-card p.desc {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-bottom: 18px;
+    max-width: 600px;
+  }
+
+  .audience-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .audience-pill {
+    font-family: var(--font-m);
+    font-size: 0.72rem;
+    font-weight: 500;
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border-soft);
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+
+  .audience-pill:hover {
+    color: var(--cyan);
+    border-color: var(--cyan);
+    box-shadow: 0 0 6px rgba(0, 216, 255, 0.15);
+  }
+
+  .audience-pill.pill-abast:hover { color: var(--cyan); border-color: var(--cyan); }
+  .audience-pill.pill-control:hover { color: var(--green); border-color: var(--green); }
+  .audience-pill.pill-planea:hover { color: var(--purple); border-color: var(--purple); }
+  .audience-pill.pill-provee:hover { color: var(--orange); border-color: var(--orange); }
+  .audience-pill.pill-academia:hover { color: var(--cyan); border-color: var(--cyan); }
+
+  .hero-footer-sources {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .hero-footer-sources b {
+    color: var(--text-main);
+  }
+
+  /* Panorama Card */
+  .panorama-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--border-glow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panorama-header {
+    margin-bottom: 8px;
+    z-index: 2;
+  }
+
+  .panorama-header h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .panorama-header small {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: var(--font-m);
+  }
+
+  .panorama-body {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 16px;
+    align-items: center;
+    flex: 1;
+    z-index: 2;
+  }
+
+  .panorama-map-container {
+    height: 100%;
+    max-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .panorama-map-container svg {
+    max-height: 100%;
+    width: auto;
+  }
+
+  .panorama-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .panorama-metric-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(16, 27, 61, 0.4);
+    border: 1px solid rgba(0, 216, 255, 0.08);
+    border-radius: 12px;
+    padding: 8px 12px;
+    transition: border-color 0.2s;
+  }
+
+  .panorama-metric-item:hover {
+    border-color: var(--border-soft);
+  }
+
+  .metric-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-m);
+    font-weight: bold;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .val-monto {
+    background: rgba(0, 140, 255, 0.15);
+    border: 1px solid var(--blue);
+    color: var(--cyan);
+    box-shadow: 0 0 8px rgba(0, 140, 255, 0.2);
+  }
+
+  .val-proveedores {
+    background: rgba(32, 214, 122, 0.15);
+    border: 1px solid var(--green);
+    color: var(--green);
+    box-shadow: 0 0 8px rgba(32, 214, 122, 0.2);
+  }
+
+  .val-procesos {
+    background: rgba(178, 60, 255, 0.15);
+    border: 1px solid var(--purple);
+    color: var(--purple);
+    box-shadow: 0 0 8px rgba(178, 60, 255, 0.2);
+  }
+
+  .metric-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .metric-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .metric-value {
+    font-size: 1.05rem;
+    font-weight: 800;
+    font-family: var(--font-m);
+  }
+
+  /* Row 2: Dynamic Tabs & Content */
+  .row-tabs-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Important for flex child nested scrolling */
+    gap: 12px;
+  }
+
+  /* Tabs Bar */
+  .tabs-bar {
+    display: flex;
+    border-bottom: 1px solid var(--border-soft);
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .tab-btn {
+    font-family: var(--font-d);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tab-btn svg {
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .tab-btn:hover {
+    color: var(--text-main);
+  }
+
+  .tab-btn:hover svg {
+    opacity: 1;
+  }
+
+  .tab-btn.active {
+    color: var(--cyan);
+    border-bottom-color: var(--cyan);
+    text-shadow: 0 0 8px rgba(0, 216, 255, 0.3);
+  }
+
+  .tab-btn.active svg {
+    opacity: 1;
+    stroke: var(--cyan);
+  }
+
+  /* Content area containing tab panels */
+  .tab-content-container {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  @media (max-width: 1023px) {
+    .tab-content-container {
+      overflow-y: visible;
+    }
+  }
+
+  .tab-pane {
+    display: none;
+    animation: fadeIn 0.25s ease forwards;
+  }
+
+  .tab-pane.active {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* TAB: Indicadores Content */
+  /* Filter Bar inside tab */
+  .filter-bar {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .filter-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .filter-field label {
+    font-family: var(--font-m);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .filter-field select {
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: var(--text-main);
+    font-size: 0.78rem;
+    font-family: var(--font-d);
+    cursor: pointer;
+    min-width: 180px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .filter-field select:focus {
+    border-color: var(--cyan);
+  }
+
+  .btn-clear {
+    background: rgba(255, 60, 60, 0.05);
+    border: 1px solid rgba(255, 60, 60, 0.2);
+    color: #FF5E5E;
+    font-family: var(--font-m);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    margin-left: auto;
+  }
+
+  .btn-clear:hover {
+    background: rgba(255, 60, 60, 0.15);
+    border-color: #FF5E5E;
+  }
+
+  .filter-info {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  .filter-info b {
+    color: var(--cyan);
+  }
+
+  /* KPIs Cards row */
+  .kpi-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .kpi-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 480px) {
+    .kpi-cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kpi-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s;
+  }
+
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 216, 255, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 216, 255, 0.1);
+  }
+
+  .kpi-card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .kpi-monto-ico { background: rgba(0, 216, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan); }
+  .kpi-hhi-ico { background: rgba(32, 214, 122, 0.1); border: 1px solid var(--green); color: var(--green); }
+  .kpi-des-ico { background: rgba(178, 60, 255, 0.1); border: 1px solid var(--purple); color: var(--purple); }
+  .kpi-dias-ico { background: rgba(255, 158, 0, 0.1); border: 1px solid var(--orange); color: var(--orange); }
+
+  .kpi-card-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .kpi-card-value {
+    font-size: 1.15rem;
+    font-weight: 800;
+    font-family: var(--font-m);
+    line-height: 1.1;
+  }
+
+  .kpi-card-label {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* Dynamic content grid (4 tables) */
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .tables-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .dashboard-table-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 240px;
+  }
+
+  .dashboard-table-card h3 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    padding: 10px 14px;
+    background: rgba(16, 27, 61, 0.4);
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .table-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 14px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    text-align: left;
+  }
+
+  th {
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 8px 6px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border-soft);
+    position: sticky;
+    top: 0;
+    background: var(--bg-panel);
+    z-index: 1;
+  }
+
+  td {
+    padding: 8px 6px;
+    border-bottom: 1px solid rgba(0, 216, 255, 0.06);
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr {
+    transition: background-color 0.15s;
+  }
+
+  tbody tr:hover {
+    background: rgba(0, 216, 255, 0.04);
+  }
+
+  .num-font {
+    font-family: var(--font-m);
+    font-weight: 600;
+  }
+
+  /* Tags/Chips */
+  .chip {
+    font-family: var(--font-m);
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: bold;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+
+  .chip.Concentrado { background: rgba(255, 158, 0, 0.12); color: var(--orange); border: 1px solid rgba(255, 158, 0, 0.3); }
+  .chip.Moderado { background: rgba(0, 140, 255, 0.12); color: var(--blue); border: 1px solid rgba(0, 140, 255, 0.3); }
+  .chip.Competido { background: rgba(32, 214, 122, 0.12); color: var(--green); border: 1px solid rgba(32, 214, 122, 0.3); }
+  .chip.alerta { background: rgba(255, 60, 60, 0.12); color: #FF5E5E; border: 1px solid rgba(255, 60, 60, 0.3); }
+  .chip.ok { background: rgba(32, 214, 122, 0.12); color: var(--green); border: 1px solid rgba(32, 214, 122, 0.3); }
+
+  /* Mini progress bar inside cell */
+  .bar-container {
+    background: var(--bg-panel-soft);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+    width: 100%;
+    max-width: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--cyan);
+  }
+
+  .table-card-footer {
+    padding: 8px 14px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: flex-end;
+    background: rgba(16, 27, 61, 0.2);
+  }
+
+  .table-card-footer a {
+    font-size: 0.68rem;
+    font-family: var(--font-m);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* TAB: Cómo funciona */
+  .workflow-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .workflow-timeline {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .workflow-step {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 16px;
+    position: relative;
+    box-shadow: var(--border-glow);
+  }
+
+  .workflow-step-num {
+    font-family: var(--font-m);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--cyan);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .workflow-step h4 {
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: var(--text-main);
+  }
+
+  .workflow-step p {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .decision-panel {
+    background: linear-gradient(135deg, rgba(0, 216, 255, 0.08), rgba(178, 60, 255, 0.04));
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 18px 22px;
+    box-shadow: var(--border-glow);
+  }
+
+  .decision-panel h3 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .decision-panel h3 svg {
+    color: var(--orange);
+  }
+
+  .decision-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .decision-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .decision-item {
+    position: relative;
+    padding-left: 24px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--text-main);
+  }
+
+  .decision-item::before {
+    content: "⚡";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    color: var(--cyan);
+    font-size: 0.8rem;
+  }
+
+  .decision-item .muted-note {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* TAB: TDR / EETT */
+  .template-container {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    gap: 16px;
+    height: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .template-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .template-sidebar {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .template-info-box h3 {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--text-main);
+    margin-bottom: 8px;
+  }
+
+  .template-info-box p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .template-info-box ul {
+    margin-top: 10px;
+    padding-left: 16px;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    display: grid;
+    gap: 4px;
+  }
+
+  .template-preview-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .template-selector-header {
+    display: flex;
+    border-bottom: 1px solid var(--border-soft);
+    background: rgba(16, 27, 61, 0.4);
+  }
+
+  .tpl-tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px;
+    font-family: var(--font-d);
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .tpl-tab-btn.active {
+    color: var(--cyan);
+    background: var(--bg-panel);
+    box-shadow: inset 0 -2px 0 var(--cyan);
+  }
+
+  .template-body-preview {
+    flex: 1;
+    padding: 16px;
+    font-family: var(--font-m);
+    font-size: 0.75rem;
+    color: #CDD9E3;
+    white-space: pre-wrap;
+    background: var(--bg-panel-soft);
+    overflow-y: auto;
+    max-height: 300px;
+    line-height: 1.5;
+  }
+
+  /* TAB: Fuentes */
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .sources-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .source-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s;
+  }
+
+  .source-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--cyan);
+    box-shadow: var(--border-glow);
+  }
+
+  .source-card .tag {
+    font-family: var(--font-m);
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+
+  .source-card h4 {
+    font-size: 0.92rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+
+  .source-card p {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .source-card a {
+    font-family: var(--font-m);
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+  }
+
+  .disclaimer-box {
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  /* Footer */
+  footer {
+    flex-shrink: 0;
+    height: 40px;
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--font-m);
+    z-index: 10;
+  }
+
+  footer b {
+    color: var(--text-main);
+  }
+
+  footer a {
+    margin-left: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP HEADER -->
+<header class="topbar">
+  <div class="topbar-left">
+    <!-- Back arrow visible to the left of CV -->
+    <a class="back-link" href="https://oprbguitar.github.io/CV/" aria-label="Volver al CV">
+      ← Volver
+    </a>
+    <div class="brand">
+      Contrata<span>Radar</span>
+      <div class="brand-badge">
+        <span class="flag">🇵🇪</span> Perú
+      </div>
+    </div>
+    <span class="slogan">Analítica para decisiones inteligentes</span>
+  </div>
+  
+  <nav class="nav-links">
+    <button class="nav-btn active" data-nav="resumen" onclick="setActiveTab('tab-indicadores', 'resumen')">Resumen</button>
+    <button class="nav-btn" data-nav="indicadores" onclick="setActiveTab('tab-indicadores', 'indicadores')">Indicadores</button>
+    <button class="nav-btn" data-nav="plantillas" onclick="setActiveTab('tab-plantillas', 'plantillas')">Plantillas</button>
+    <button class="nav-btn" data-nav="fuentes" onclick="setActiveTab('tab-fuentes', 'fuentes')">Fuentes</button>
+    <a class="nav-cta" href="https://github.com/oprbguitar/contrataciones" target="_blank" rel="noreferrer">Repositorio ↗</a>
+  </nav>
+
+  <div class="mode-switch">
+    <span class="mode-label label-claro">Claro</span>
+    <label class="switch">
+      <input type="checkbox" id="theme-toggle" checked>
+      <span class="slider"></span>
+    </label>
+    <span class="mode-label label-oscuro active-label">Oscuro</span>
+  </div>
+</header>
+
+<!-- DASHBOARD CONTAINER -->
+<div class="dashboard-container">
+
+  <!-- ROW 1: Hero & Panorama Nacional -->
+  <div class="row-overview">
+    <!-- HERO/TITLE CARD -->
+    <div class="hero-card">
+      <div class="category-tag">Contrataciones Públicas – Perú</div>
+      <h1>Analiza contrataciones públicas en <span>minutos</span></h1>
+      <p class="desc">Convierte datos abiertos del Estado en señales claras para decidir mejor. Detecta concentración de proveedores, procesos desiertos y demoras de adjudicación.</p>
+      
+      <div class="audience-tags">
+        <span class="audience-pill pill-abast">
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Abastecimiento
+        </span>
+        <span class="audience-pill pill-control">
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          OCI / Control
+        </span>
+        <span class="audience-pill pill-planea">
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Planeamiento
+        </span>
+        <span class="audience-pill pill-provee">
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Proveedores
+        </span>
+        <span class="audience-pill pill-academia">
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2.5 3 6 3s6-1 6-3v-5"/></svg>
+          Academia
+        </span>
+      </div>
+
+      <div class="hero-footer-sources">
+        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Fuentes públicas oficiales: <b>OSCE • SEACE • PERÚ COMPRAS</b>
+      </div>
+    </div>
+
+    <!-- PANORAMA NACIONAL (MAPA PERU + METRICAS) -->
+    <div class="panorama-card">
+      <div class="panorama-header">
+        <h3>Panorama nacional</h3>
+        <small>Contrataciones analizadas</small>
+      </div>
+      <div class="panorama-body">
+        <div class="panorama-map-container">
+          <!-- Stylized technology outline map of Peru -->
+          <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="mapglow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.12" />
+                <stop offset="100%" stop-color="var(--bg-panel)" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle cx="120" cy="160" r="110" fill="url(#mapglow)" />
+            <path d="M 30,80 L 15,95 L 35,120 L 50,150 L 70,180 L 95,220 L 115,250 L 135,275 L 165,295 L 175,305 L 185,280 L 195,270 L 210,240 L 220,180 L 170,140 L 195,110 L 210,85 L 160,50 L 130,25 L 90,60 L 75,75 L 65,70 L 45,90 Z" 
+                  fill="rgba(0, 216, 255, 0.02)" 
+                  stroke="var(--cyan)" 
+                  stroke-opacity="0.3" 
+                  stroke-width="1.2" 
+                  stroke-dasharray="3,3" />
+            <g stroke="var(--cyan)" stroke-opacity="0.2" stroke-width="0.8">
+              <line x1="90" y1="60" x2="100" y2="100" /><line x1="75" y1="75" x2="100" y2="100" /><line x1="150" y1="110" x2="100" y2="100" /><line x1="160" y1="50" x2="100" y2="100" /><line x1="120" y1="150" x2="100" y2="100" /><line x1="120" y1="150" x2="150" y2="110" /><line x1="120" y1="150" x2="110" y2="200" /><line x1="120" y1="150" x2="170" y2="140" /><line x1="150" y1="110" x2="160" y2="50" /><line x1="150" y1="110" x2="210" y2="85" /><line x1="150" y1="110" x2="195" y2="110" /><line x1="110" y1="200" x2="95" y2="220" /><line x1="110" y1="200" x2="115" y2="250" /><line x1="110" y1="200" x2="140" y2="220" /><line x1="110" y1="200" x2="135" y2="250" /><line x1="140" y1="220" x2="135" y2="250" /><line x1="140" y1="220" x2="210" y2="240" /><line x1="140" y1="220" x2="165" y2="210" /><line x1="140" y1="220" x2="195" y2="270" /><line x1="165" y1="210" x2="220" y2="180" /><line x1="165" y1="210" x2="210" y2="240" /><line x1="135" y1="250" x2="115" y2="250" /><line x1="135" y1="250" x2="135" y2="275" /><line x1="135" y1="250" x2="165" y2="295" /><line x1="135" y1="250" x2="185" y2="280" />
+            </g>
+            <g fill="var(--cyan)" stroke="var(--bg-main)" stroke-width="1.2">
+              <circle cx="30" cy="80" r="3" /><circle cx="15" cy="95" r="3" /><circle cx="35" cy="120" r="3" /><circle cx="50" cy="150" r="3" /><circle cx="70" cy="180" r="3" /><circle cx="95" cy="220" r="3" /><circle cx="115" cy="250" r="3" /><circle cx="135" cy="275" r="3" /><circle cx="165" cy="295" r="3" /><circle cx="175" cy="305" r="3" /><circle cx="185" cy="280" r="3" /><circle cx="195" cy="270" r="3" /><circle cx="210" cy="240" r="3" /><circle cx="220" cy="180" r="3" /><circle cx="170" cy="140" r="3" /><circle cx="195" cy="110" r="3" /><circle cx="210" cy="85" r="3" /><circle cx="160" cy="50" r="3" /><circle cx="130" cy="25" r="3" /><circle cx="90" cy="60" r="3" /><circle cx="75" cy="75" r="3" /><circle cx="65" cy="70" r="3" /><circle cx="45" cy="90" r="3" />
+              <circle cx="100" cy="100" r="2.5" fill="var(--blue)" /><circle cx="120" cy="150" r="2.5" fill="var(--blue)" /><circle cx="150" cy="110" r="2.5" fill="var(--blue)" /><circle cx="110" cy="200" r="2.5" fill="var(--blue)" /><circle cx="140" cy="220" r="2.5" fill="var(--blue)" /><circle cx="165" cy="210" r="2.5" fill="var(--blue)" /><circle cx="135" cy="250" r="2.5" fill="var(--blue)" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="panorama-metrics">
+          <div class="panorama-metric-item">
+            <div class="metric-icon val-monto">S/</div>
+            <div class="metric-details">
+              <span class="metric-label">Monto Adjudicado</span>
+              <span class="metric-value" id="pan-monto">—</span>
+            </div>
+          </div>
+          <div class="panorama-metric-item">
+            <div class="metric-icon val-proveedores">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="metric-details">
+              <span class="metric-label">Proveedores Únicos</span>
+              <span class="metric-value" id="pan-proveedores">—</span>
+            </div>
+          </div>
+          <div class="panorama-metric-item">
+            <div class="metric-icon val-procesos">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="metric-details">
+              <span class="metric-label">Procesos Analizados</span>
+              <span class="metric-value" id="pan-procesos">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Tabs with Dynamic Panels -->
+  <div class="row-tabs-content">
+    
+    <!-- Tab Bar selectors -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-tab="tab-indicadores" onclick="setActiveTab('tab-indicadores')">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Indicadores
+      </button>
+      <button class="tab-btn" data-tab="tab-como-funciona" onclick="setActiveTab('tab-como-funciona')">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Cómo funciona
+      </button>
+      <button class="tab-btn" data-tab="tab-plantillas" onclick="setActiveTab('tab-plantillas')">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        TDR / EETT
+      </button>
+      <button class="tab-btn" data-tab="tab-fuentes" onclick="setActiveTab('tab-fuentes')">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+        Fuentes
+      </button>
+    </div>
+
+    <!-- PANE CONTAINER -->
+    <div class="tab-content-container">
+      
+      <!-- TAB: INDICADORES -->
+      <div id="tab-indicadores" class="tab-pane active">
+        <!-- Filter Tools -->
+        <div class="filter-bar">
+          <div class="filter-field">
+            <label for="f-entidad">Entidad</label>
+            <select id="f-entidad">
+              <option value="">Todas las entidades</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label for="f-riesgo">Nivel</label>
+            <select id="f-riesgo">
+              <option value="">Todos los niveles</option>
+              <option value="alerta">Solo señales de atención</option>
+              <option value="normal">Sin alerta</option>
+            </select>
+          </div>
+          
+          <div class="filter-info">
+            Visibles: <span class="num-font"><b id="visible-count">—</b></span> entidades.
+            <span id="filter-status" style="margin-left: 10px; opacity: 0.7;">Sin filtros aplicados</span>
+          </div>
+
+          <button class="btn-clear" type="button" id="reset-filters">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Limpiar filtros
+          </button>
+        </div>
+
+        <!-- 4 KPI Metrics Row -->
+        <div class="kpi-cards-grid">
+          <!-- KPI 1 -->
+          <div class="kpi-card">
+            <div class="kpi-card-icon kpi-monto-ico">S/</div>
+            <div class="kpi-card-details">
+              <span class="kpi-card-value" id="k-monto">—</span>
+              <span class="kpi-card-label">Monto adjudicado</span>
+            </div>
+          </div>
+          <!-- KPI 2 -->
+          <div class="kpi-card">
+            <div class="kpi-card-icon kpi-hhi-ico">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div class="kpi-card-details">
+              <span class="kpi-card-value" id="k-hhi">—</span>
+              <span class="kpi-card-label">HHI global (concentración)</span>
+            </div>
+          </div>
+          <!-- KPI 3 -->
+          <div class="kpi-card">
+            <div class="kpi-card-icon kpi-des-ico">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            </div>
+            <div class="kpi-card-details">
+              <span class="kpi-card-value" id="k-des">—</span>
+              <span class="kpi-card-label">Tasa de desiertos</span>
+            </div>
+          </div>
+          <!-- KPI 4 -->
+          <div class="kpi-card">
+            <div class="kpi-card-icon kpi-dias-ico">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="kpi-card-details">
+              <span class="kpi-card-value" id="k-dias">—</span>
+              <span class="kpi-card-label">Días promedio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Tables Grid layout -->
+        <div class="tables-grid">
+          <!-- 1. HHI por entidad -->
+          <div class="dashboard-table-card">
+            <h3>Concentración de proveedores · HHI</h3>
+            <div class="table-scroll-container">
+              <table id="t-hhi">
+                <thead>
+                  <tr>
+                    <th>Entidad</th>
+                    <th>HHI</th>
+                    <th>Mercado</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="table-card-footer">
+              <a href="#f-riesgo" onclick="setRiesgoFilter('alerta')">Ver alertas HHI →</a>
+            </div>
+          </div>
+
+          <!-- 2. Top proveedores -->
+          <div class="dashboard-table-card">
+            <h3>Top proveedores por monto adjudicado</h3>
+            <div class="table-scroll-container">
+              <table id="t-prov">
+                <thead>
+                  <tr>
+                    <th>Proveedor</th>
+                    <th>Monto (S/)</th>
+                    <th>Cuota</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="table-card-footer">
+              <a href="#tab-plantillas" onclick="setActiveTab('tab-plantillas')">Usar proveedores en plantillas →</a>
+            </div>
+          </div>
+
+          <!-- 3. Procesos desiertos -->
+          <div class="dashboard-table-card">
+            <h3>Procesos desiertos por entidad</h3>
+            <div class="table-scroll-container">
+              <table id="t-des">
+                <thead>
+                  <tr>
+                    <th>Entidad</th>
+                    <th>Tasa</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="table-card-footer">
+              <a href="#f-riesgo" onclick="setRiesgoFilter('alerta')">Ver detalle de desiertos →</a>
+            </div>
+          </div>
+
+          <!-- 4. Tiempos promedio -->
+          <div class="dashboard-table-card">
+            <h3>Tiempos por entidad (días promedio)</h3>
+            <div class="table-scroll-container">
+              <table id="t-tie">
+                <thead>
+                  <tr>
+                    <th>Entidad</th>
+                    <th>Días</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="table-card-footer">
+              <a href="#f-riesgo" onclick="setRiesgoFilter('normal')">Ver más entidades →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TAB: COMO FUNCIONA -->
+      <div id="tab-como-funciona" class="tab-pane">
+        <!-- 4 steps workflow cards -->
+        <div class="workflow-timeline">
+          <!-- Step 1 -->
+          <div class="workflow-step">
+            <div class="workflow-step-num">01</div>
+            <h4>Ingerir</h4>
+            <p>Descarga los datos abiertos oficiales del OECE / SEACE o usa la muestra incluida en formato estructurado.</p>
+          </div>
+          <!-- Step 2 -->
+          <div class="workflow-step">
+            <div class="workflow-step-num">02</div>
+            <h4>Analizar</h4>
+            <p>El pipeline en Python calcula HHI, ratios de procesos desiertos y demoras, determinando niveles de riesgo.</p>
+          </div>
+          <!-- Step 3 -->
+          <div class="workflow-step">
+            <div class="workflow-step-num">03</div>
+            <h4>Visualizar</h4>
+            <p>El tablero se actualiza de manera estática a través de un archivo JSON optimizado, fácil de correr offline.</p>
+          </div>
+          <!-- Step 4 -->
+          <div class="workflow-step">
+            <div class="workflow-step-num">04</div>
+            <h4>Generar TDR/EETT</h4>
+            <p>Genera esqueletos y borradores base prellenados con datos agregados para agilizar la redacción técnica.</p>
+          </div>
+        </div>
+
+        <!-- Decision helper box -->
+        <div class="decision-panel">
+          <h3>
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" style="vertical-align: text-bottom;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            De la señal a la decisión inteligente
+          </h3>
+          <ul class="decision-list">
+            <li class="decision-item">
+              <b>HHI alto = revisar competencia</b>
+              <span class="muted-note">Indica posible concentración; evaluar si existen requisitos demasiado restrictivos o direccionamientos.</span>
+            </li>
+            <li class="decision-item">
+              <b>Desiertos altos = revisar requerimiento</b>
+              <span class="muted-note">Indica que los proveedores no ofertan; evaluar plazos cortos o valores de referencia desfasados.</span>
+            </li>
+            <li class="decision-item">
+              <b>Tiempos altos = revisar cuello de botella</b>
+              <span class="muted-note">Identifica trabas burocráticas o demoras en la evaluación que ralentizan la contratación pública.</span>
+            </li>
+            <li class="decision-item">
+              <b>Validación técnica obligatoria</b>
+              <span class="muted-note">Las estadísticas orientan la atención; la conclusión requiere auditar el expediente de contratación completo.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- TAB: TDR / EETT -->
+      <div id="tab-plantillas" class="tab-pane">
+        <div class="template-container">
+          <!-- Description & details sidebar -->
+          <div class="template-sidebar">
+            <div class="template-info-box">
+              <h3>Borradores Autogenerados</h3>
+              <p>ContrataRadar automatiza el esqueleto de especificaciones técnicas alineadas al marco de la <b>Ley N.° 32069 (Ley General de Contrataciones Públicas)</b>.</p>
+              <ul>
+                <li>Prellenado de entidad, montos y códigos de muestra.</li>
+                <li>Estructura modular lista para completar campos indicados con [ ].</li>
+                <li>Incluye checklist final de consistencia normativa.</li>
+              </ul>
+            </div>
+            
+            <div class="disclaimer-box" style="margin-top: auto; border-left: 3px solid var(--purple);">
+              <b>Nota legal:</b> Estas plantillas sirven como asistente de redacción inicial estructurada. No sustituyen la revisión legal interna obligatoria.
+            </div>
+          </div>
+
+          <!-- Template editor / preview card -->
+          <div class="template-preview-card">
+            <div class="template-selector-header">
+              <button class="tpl-tab-btn active" id="tab-tdr" onclick="showTpl('tdr')">TDR · Servicio / Consultoría</button>
+              <button class="tpl-tab-btn" id="tab-eett" onclick="showTpl('eett')">EETT · Bien</button>
+            </div>
+            <pre class="template-body-preview" id="tpl-body">Cargando plantilla base...</pre>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TAB: FUENTES -->
+      <div id="tab-fuentes" class="tab-pane">
+        <div class="sources-grid">
+          <!-- Card 1 -->
+          <div class="source-card">
+            <div>
+              <span class="tag">OECE</span>
+              <h4>Portal de Datos Abiertos (SEACE)</h4>
+              <p>PAC, procedimientos de convocatoria y adjudicación, contratos consolidados, proveedores, consorcios y registros del estándar OCDS desde 2018.</p>
+            </div>
+            <a href="https://www.gob.pe/14272-acceder-al-portal-de-datos-abiertos-del-osce" target="_blank" rel="noreferrer">Ver fuente oficial ↗</a>
+          </div>
+          <!-- Card 2 -->
+          <div class="source-card">
+            <div>
+              <span class="tag">PERÚ COMPRAS</span>
+              <h4>Catálogos Electrónicos</h4>
+              <p>Órdenes de compra y servicio formalizadas a través de Acuerdos Marco, cargadas periódicamente a la Plataforma Nacional de Datos Abiertos.</p>
+            </div>
+            <a href="https://www.gob.pe/10251-acceder-a-los-datos-abiertos-sobre-compras-del-estado-mediante-catalogos-electronicos" target="_blank" rel="noreferrer">Ver fuente oficial ↗</a>
+          </div>
+          <!-- Card 3 -->
+          <div class="source-card">
+            <div>
+              <span class="tag">CONOSCE / BI SEACE</span>
+              <h4>Inteligencia de Negocios</h4>
+              <p>Catálogos, glosarios técnicos y tableros interactivos del Sistema de Inteligencia para la compra pública en Perú en base a OCDS.</p>
+            </div>
+            <a href="https://www.gob.pe/52005-acceder-al-portal-de-contrataciones-abiertas-de-la-compra-publica-ocds" target="_blank" rel="noreferrer">Ver portal OCDS ↗</a>
+          </div>
+          <!-- Card 4 -->
+          <div class="source-card">
+            <div>
+              <span class="tag">MARCO LEGAL</span>
+              <h4>Ley N.° 32069 y PLADICOP</h4>
+              <p>Normas, decretos reglamentarios y directivas del OSCE que establecen los parámetros obligatorios de formulación de TDR y EETT.</p>
+            </div>
+            <a href="https://www.gob.pe/institucion/osce/colecciones/45029-ley-n-32069-ley-general-de-contrataciones-publicas-y-su-reglamento" target="_blank" rel="noreferrer">Ver compendio legal ↗</a>
+          </div>
+        </div>
+
+        <div class="disclaimer-box" id="disc">
+          Cargando detalles técnicos del set de datos...
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div id="foot">
+    ContrataRadar — Desarrollado por Pierre R. • Consultas adicionales: peru.labs.pe@gmail.com
+  </div>
+</footer>
+
+<script>
+// Main state variables
+let DATA;
+const COLC = { Concentrado: 'Concentrado', Moderado: 'Moderado', Competido: 'Competido' };
+const fmt = n => new Intl.NumberFormat('es-PE').format(Math.round(n));
+
+const formatMonto = val => {
+  if (val >= 1e9) return `S/ ${(val / 1e9).toFixed(1)} B`;
+  if (val >= 1e6) return `S/ ${(val / 1e6).toFixed(1)} M`;
+  return `S/ ${new Intl.NumberFormat('es-PE').format(Math.round(val))}`;
+};
+
+// Fetch data.json and initialize
+fetch('data.json')
+  .then(r => r.json())
+  .then(d => {
+    DATA = d;
+    initDashboard();
+  })
+  .catch(() => {
+    document.getElementById('disc').textContent = 'No se encontró data.json — ejecuta el pipeline de ingesta o asegúrate de que el archivo esté en docs/data.json.';
+  });
+
+function initDashboard() {
+  const r = DATA.resumen;
+  
+  // Bind top metrics / panorama
+  document.getElementById('pan-monto').textContent = formatMonto(r.monto_total_adjudicado);
+  document.getElementById('pan-proveedores').textContent = fmt(r.n_proveedores);
+  document.getElementById('pan-procesos').textContent = fmt(r.n_procesos);
+
+  // Bind tab KPIs
+  document.getElementById('k-monto').textContent = formatMonto(r.monto_total_adjudicado);
+  document.getElementById('k-hhi').textContent = `${r.hhi_global} (${r.hhi_global_clase})`;
+  document.getElementById('k-des').textContent = `${r.tasa_desiertos_global}%`;
+  document.getElementById('k-dias').textContent = `${r.dias_promedio_global} días`;
+
+  // Bind Top Proveedores
+  const maxCuota = Math.max(...DATA.top_proveedores.map(p => p.cuota_pct));
+  document.querySelector('#t-prov tbody').innerHTML = DATA.top_proveedores.map(p => {
+    const widthPercentage = Math.min((p.cuota_pct / maxCuota) * 100, 100);
+    return `<tr>
+      <td>
+        <div>${p.proveedor}</div>
+        <div class="bar-container">
+          <div class="bar-fill" style="width: ${widthPercentage}%; background-color: var(--blue);"></div>
+        </div>
+      </td>
+      <td class="num-font">${formatMonto(p.monto).replace('S/ ', '')}</td>
+      <td class="num-font">${p.cuota_pct}%</td>
+    </tr>`;
+  }).join('');
+
+  // Populate Entity Dropdown Filter
+  const selectEntidad = document.getElementById('f-entidad');
+  DATA.hhi_entidad.forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.entidad;
+    opt.textContent = e.entidad;
+    selectEntidad.appendChild(opt);
+  });
+
+  // Listeners for filters
+  selectEntidad.addEventListener('change', renderFilteredTables);
+  document.getElementById('f-riesgo').addEventListener('change', renderFilteredTables);
+  document.getElementById('reset-filters').addEventListener('click', () => {
+    selectEntidad.value = '';
+    document.getElementById('f-riesgo').value = '';
+    renderFilteredTables();
+  });
+
+  // Disclaimer and footer text binding
+  document.getElementById('disc').innerHTML = 
+    `<b>Fuentes de datos oficiales:</b> ${DATA.meta.fuente}. <br>` +
+    `Parámetros del modelo técnico: Umbral HHI Concentrado ≥ ${DATA.meta.hhi_concentrado}, ` +
+    `Alerta Desiertos ≥ ${DATA.meta.umbral_desiertos_pct}%, ` +
+    `Proceso catalogado como lento ≥ ${DATA.meta.umbral_dias_lento} días.`;
+
+  document.getElementById('foot').innerHTML =
+    `<b>ContrataRadar</b> — Rediseñado por <b>Pierre R.</b>, Ingeniero Industrial • Analítica y Control Institucional • ` +
+    `Contacto: <a href="mailto:peru.labs.pe@gmail.com">peru.labs.pe@gmail.com</a>`;
+
+  // Render initial tables
+  renderFilteredTables();
+  showTpl('tdr');
+}
+
+function renderFilteredTables() {
+  const entidadVal = document.getElementById('f-entidad').value;
+  const riesgoVal = document.getElementById('f-riesgo').value;
+
+  const matchEntidad = (nombre) => !entidadVal || nombre === entidadVal;
+  const matchRiesgo = (alerta, clasificacion) => {
+    if (!riesgoVal) return true;
+    if (riesgoVal === 'alerta') {
+      return alerta || clasificacion === 'Concentrado';
+    } else {
+      return !alerta && clasificacion !== 'Concentrado';
+    }
+  };
+
+  // 1. Filter HHI
+  const hhiFiltered = DATA.hhi_entidad.filter(e => 
+    matchEntidad(e.entidad) && matchRiesgo(e.clasificacion === 'Concentrado', e.clasificacion)
+  );
+  document.querySelector('#t-hhi tbody').innerHTML = hhiFiltered.map(e => 
+    `<tr>
+      <td>${e.entidad}</td>
+      <td class="num-font">${e.hhi}</td>
+      <td><span class="chip ${e.clasificacion}">${e.clasificacion}</span></td>
+    </tr>`
+  ).join('') || `<tr><td colspan="3" style="color:var(--text-muted); text-align:center; padding: 12px;">Sin coincidencias</td></tr>`;
+
+  // 2. Filter Desiertos
+  const desiertosFiltered = DATA.desiertos_entidad.filter(d => 
+    matchEntidad(d.entidad) && matchRiesgo(d.alerta, '')
+  );
+  document.querySelector('#t-des tbody').innerHTML = desiertosFiltered.map(d => 
+    `<tr>
+      <td>${d.entidad}</td>
+      <td class="num-font">${d.tasa_pct}%</td>
+      <td><span class="chip ${d.alerta ? 'alerta' : 'ok'}">${d.alerta ? 'Atención' : 'OK'}</span></td>
+    </tr>`
+  ).join('') || `<tr><td colspan="3" style="color:var(--text-muted); text-align:center; padding: 12px;">Sin coincidencias</td></tr>`;
+
+  // 3. Filter Tiempos
+  const tiemposFiltered = DATA.tiempos_entidad.filter(t => 
+    matchEntidad(t.entidad) && matchRiesgo(t.lento, '')
+  );
+  document.querySelector('#t-tie tbody').innerHTML = tiemposFiltered.map(t => 
+    `<tr>
+      <td>${t.entidad}</td>
+      <td class="num-font">${t.dias_promedio}</td>
+      <td><span class="chip ${t.lento ? 'alerta' : 'ok'}">${t.lento ? 'Lento' : 'OK'}</span></td>
+    </tr>`
+  ).join('') || `<tr><td colspan="3" style="color:var(--text-muted); text-align:center; padding: 12px;">Sin coincidencias</td></tr>`;
+
+  // Count unique visible entities in tables
+  const visibleEntities = new Set([
+    ...hhiFiltered.map(x => x.entidad),
+    ...desiertosFiltered.map(x => x.entidad),
+    ...tiemposFiltered.map(x => x.entidad)
+  ]);
+  document.getElementById('visible-count').textContent = visibleEntities.size;
+
+  // Filter indicator label
+  const filterLabel = (entidadVal || riesgoVal) 
+    ? `Filtro activo: <b>${entidadVal || 'Todas'}</b> • <b>${riesgoVal === 'alerta' ? 'Alertas' : (riesgoVal === 'normal' ? 'Sin Alerta' : 'Todos')}</b>` 
+    : 'Sin filtros aplicados';
+  document.getElementById('filter-status').innerHTML = filterLabel;
+}
+
+// Quick action to set filter from table footer
+function setRiesgoFilter(val) {
+  document.getElementById('f-riesgo').value = val;
+  renderFilteredTables();
+}
+
+// Active Tab navigation
+function setActiveTab(tabId, navName) {
+  // Hide all tab panes
+  document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+  // Deactivate all tab buttons
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  // Deactivate all top navigation buttons
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+  // Show target tab pane
+  const targetPane = document.getElementById(tabId);
+  if (targetPane) targetPane.classList.add('active');
+
+  // Active state on tab buttons
+  const targetTabBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+  if (targetTabBtn) targetTabBtn.classList.add('active');
+
+  // Active state on top nav buttons
+  if (navName) {
+    const targetNavBtn = document.querySelector(`.nav-btn[data-nav="${navName}"]`);
+    if (targetNavBtn) targetNavBtn.classList.add('active');
+  } else {
+    // If clicked from tab button, map tabId to navName
+    let mappedNav = '';
+    if (tabId === 'tab-indicadores') mappedNav = 'indicadores';
+    else if (tabId === 'tab-plantillas') mappedNav = 'plantillas';
+    else if (tabId === 'tab-fuentes') mappedNav = 'fuentes';
+    
+    if (mappedNav) {
+      const targetNavBtn = document.querySelector(`.nav-btn[data-nav="${mappedNav}"]`);
+      if (targetNavBtn) targetNavBtn.classList.add('active');
+    }
+  }
+}
+
+// Template content preview selector
+function showTpl(which) {
+  document.getElementById('tab-tdr').classList.toggle('active', which === 'tdr');
+  document.getElementById('tab-eett').classList.toggle('active', which === 'eett');
+  
+  if (!DATA || !DATA.plantillas_ejemplo) return;
+  const t = DATA.plantillas_ejemplo;
+  document.getElementById('tpl-body').textContent = 
+    which === 'tdr' ? (t.tdr || 'Ejemplo TDR no disponible.') : (t.eett || 'Ejemplo EETT no disponible.');
+}
+
+// Light / Dark mode toggle listener
+document.getElementById('theme-toggle').addEventListener('change', (e) => {
+  if (e.target.checked) {
+    document.body.classList.remove('light-mode');
+    document.querySelector('.label-oscuro').classList.add('active-label');
+    document.querySelector('.label-claro').classList.remove('active-label');
+  } else {
+    document.body.classList.add('light-mode');
+    document.querySelector('.label-oscuro').classList.remove('active-label');
+    document.querySelector('.label-claro').classList.add('active-label');
+  }
+});
+</script>
+</body>
+</html>

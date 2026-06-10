@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+data_open/contrataciones.csv
+data_processed/*.csv
+data_processed/*.json

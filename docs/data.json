@@ -1,0 +1,386 @@
+{
+  "meta": {
+    "fuente": "OECE (Datos Abiertos / OCDS) + PERÚ COMPRAS — demostración con muestra sintética",
+    "umbral_desiertos_pct": 20.0,
+    "umbral_dias_lento": 60,
+    "hhi_moderado": 1500,
+    "hhi_concentrado": 2500
+  },
+  "resumen": {
+    "n_procesos": 1800,
+    "n_entidades": 10,
+    "n_proveedores": 56,
+    "monto_total_adjudicado": 822417192.0,
+    "tasa_desiertos_global": 15.1,
+    "dias_promedio_global": 37.7,
+    "hhi_global": 521.3,
+    "hhi_global_clase": "Competido"
+  },
+  "top_proveedores": [
+    {
+      "proveedor": "Proveedor A0",
+      "monto": 119561650.37,
+      "cuota_pct": 14.5
+    },
+    {
+      "proveedor": "Proveedor A1",
+      "monto": 81000937.96,
+      "cuota_pct": 9.8
+    },
+    {
+      "proveedor": "Proveedor A2",
+      "monto": 52487988.15,
+      "cuota_pct": 6.4
+    },
+    {
+      "proveedor": "Proveedor J27",
+      "monto": 41879662.53,
+      "cuota_pct": 5.1
+    },
+    {
+      "proveedor": "Proveedor O44",
+      "monto": 32990514.35,
+      "cuota_pct": 4.0
+    },
+    {
+      "proveedor": "Proveedor K32",
+      "monto": 32633030.16,
+      "cuota_pct": 4.0
+    },
+    {
+      "proveedor": "Proveedor B5",
+      "monto": 27633665.56,
+      "cuota_pct": 3.4
+    },
+    {
+      "proveedor": "Proveedor I24",
+      "monto": 27137289.84,
+      "cuota_pct": 3.3
+    },
+    {
+      "proveedor": "Proveedor G18",
+      "monto": 25898388.14,
+      "cuota_pct": 3.1
+    },
+    {
+      "proveedor": "Proveedor B3",
+      "monto": 25486871.34,
+      "cuota_pct": 3.1
+    }
+  ],
+  "hhi_entidad": [
+    {
+      "entidad": "SEDAPAL",
+      "hhi": 3306.1,
+      "clasificacion": "Concentrado",
+      "n_adjudicados": 121
+    },
+    {
+      "entidad": "EsSalud",
+      "hhi": 3197.3,
+      "clasificacion": "Concentrado",
+      "n_adjudicados": 127
+    },
+    {
+      "entidad": "Municipalidad de Trujillo",
+      "hhi": 2738.0,
+      "clasificacion": "Concentrado",
+      "n_adjudicados": 142
+    },
+    {
+      "entidad": "Ministerio de Salud",
+      "hhi": 756.3,
+      "clasificacion": "Competido",
+      "n_adjudicados": 123
+    },
+    {
+      "entidad": "Ministerio del Interior",
+      "hhi": 628.4,
+      "clasificacion": "Competido",
+      "n_adjudicados": 109
+    },
+    {
+      "entidad": "PRONIED",
+      "hhi": 613.9,
+      "clasificacion": "Competido",
+      "n_adjudicados": 122
+    },
+    {
+      "entidad": "Gobierno Regional de Cusco",
+      "hhi": 610.9,
+      "clasificacion": "Competido",
+      "n_adjudicados": 89
+    },
+    {
+      "entidad": "Ministerio de Educación",
+      "hhi": 605.6,
+      "clasificacion": "Competido",
+      "n_adjudicados": 119
+    },
+    {
+      "entidad": "Municipalidad Provincial de Arequipa",
+      "hhi": 570.3,
+      "clasificacion": "Competido",
+      "n_adjudicados": 127
+    },
+    {
+      "entidad": "Gobierno Regional de Lima",
+      "hhi": 490.5,
+      "clasificacion": "Competido",
+      "n_adjudicados": 117
+    }
+  ],
+  "desiertos_entidad": [
+    {
+      "entidad": "PRONIED",
+      "total": 194,
+      "desiertos": 42,
+      "tasa_pct": 21.6,
+      "alerta": true
+    },
+    {
+      "entidad": "Gobierno Regional de Lima",
+      "total": 179,
+      "desiertos": 38,
+      "tasa_pct": 21.2,
+      "alerta": true
+    },
+    {
+      "entidad": "Gobierno Regional de Cusco",
+      "total": 155,
+      "desiertos": 28,
+      "tasa_pct": 18.1,
+      "alerta": false
+    },
+    {
+      "entidad": "Ministerio del Interior",
+      "total": 166,
+      "desiertos": 28,
+      "tasa_pct": 16.9,
+      "alerta": false
+    },
+    {
+      "entidad": "Municipalidad de Trujillo",
+      "total": 212,
+      "desiertos": 31,
+      "tasa_pct": 14.6,
+      "alerta": false
+    },
+    {
+      "entidad": "EsSalud",
+      "total": 190,
+      "desiertos": 26,
+      "tasa_pct": 13.7,
+      "alerta": false
+    },
+    {
+      "entidad": "Ministerio de Salud",
+      "total": 173,
+      "desiertos": 23,
+      "tasa_pct": 13.3,
+      "alerta": false
+    },
+    {
+      "entidad": "Municipalidad Provincial de Arequipa",
+      "total": 174,
+      "desiertos": 19,
+      "tasa_pct": 10.9,
+      "alerta": false
+    },
+    {
+      "entidad": "SEDAPAL",
+      "total": 181,
+      "desiertos": 19,
+      "tasa_pct": 10.5,
+      "alerta": false
+    },
+    {
+      "entidad": "Ministerio de Educación",
+      "total": 176,
+      "desiertos": 18,
+      "tasa_pct": 10.2,
+      "alerta": false
+    }
+  ],
+  "desiertos_tipo": [
+    {
+      "tipo": "Licitación Pública",
+      "total": 194,
+      "desiertos": 35,
+      "tasa_pct": 18.0
+    },
+    {
+      "tipo": "Comparación de Precios",
+      "total": 154,
+      "desiertos": 26,
+      "tasa_pct": 16.9
+    },
+    {
+      "tipo": "Adjudicación Simplificada",
+      "total": 599,
+      "desiertos": 98,
+      "tasa_pct": 16.4
+    },
+    {
+      "tipo": "Subasta Inversa Electrónica",
+      "total": 337,
+      "desiertos": 47,
+      "tasa_pct": 13.9
+    },
+    {
+      "tipo": "Concurso Público",
+      "total": 100,
+      "desiertos": 13,
+      "tasa_pct": 13.0
+    },
+    {
+      "tipo": "Selección de Consultores Individuales",
+      "total": 115,
+      "desiertos": 15,
+      "tasa_pct": 13.0
+    },
+    {
+      "tipo": "Contratación Directa",
+      "total": 301,
+      "desiertos": 38,
+      "tasa_pct": 12.6
+    }
+  ],
+  "tiempos_entidad": [
+    {
+      "entidad": "PRONIED",
+      "dias_promedio": 40.4,
+      "n": 122,
+      "lento": false
+    },
+    {
+      "entidad": "Ministerio del Interior",
+      "dias_promedio": 40.2,
+      "n": 109,
+      "lento": false
+    },
+    {
+      "entidad": "EsSalud",
+      "dias_promedio": 39.2,
+      "n": 127,
+      "lento": false
+    },
+    {
+      "entidad": "Gobierno Regional de Cusco",
+      "dias_promedio": 38.1,
+      "n": 89,
+      "lento": false
+    },
+    {
+      "entidad": "Gobierno Regional de Lima",
+      "dias_promedio": 37.9,
+      "n": 117,
+      "lento": false
+    },
+    {
+      "entidad": "SEDAPAL",
+      "dias_promedio": 37.9,
+      "n": 121,
+      "lento": false
+    },
+    {
+      "entidad": "Ministerio de Salud",
+      "dias_promedio": 36.7,
+      "n": 123,
+      "lento": false
+    },
+    {
+      "entidad": "Ministerio de Educación",
+      "dias_promedio": 36.2,
+      "n": 119,
+      "lento": false
+    },
+    {
+      "entidad": "Municipalidad Provincial de Arequipa",
+      "dias_promedio": 36.2,
+      "n": 127,
+      "lento": false
+    },
+    {
+      "entidad": "Municipalidad de Trujillo",
+      "dias_promedio": 35.3,
+      "n": 142,
+      "lento": false
+    }
+  ],
+  "tiempos_tipo": [
+    {
+      "tipo": "Selección de Consultores Individuales",
+      "dias_promedio": 40.8,
+      "n": 85
+    },
+    {
+      "tipo": "Comparación de Precios",
+      "dias_promedio": 38.5,
+      "n": 96
+    },
+    {
+      "tipo": "Contratación Directa",
+      "dias_promedio": 38.5,
+      "n": 204
+    },
+    {
+      "tipo": "Adjudicación Simplificada",
+      "dias_promedio": 37.5,
+      "n": 391
+    },
+    {
+      "tipo": "Subasta Inversa Electrónica",
+      "dias_promedio": 37.3,
+      "n": 230
+    },
+    {
+      "tipo": "Concurso Público",
+      "dias_promedio": 36.8,
+      "n": 68
+    },
+    {
+      "tipo": "Licitación Pública",
+      "dias_promedio": 35.9,
+      "n": 122
+    }
+  ],
+  "serie_anual": [
+    {
+      "anio": 2018,
+      "monto": 101669161.0
+    },
+    {
+      "anio": 2019,
+      "monto": 103821463.0
+    },
+    {
+      "anio": 2020,
+      "monto": 111799142.0
+    },
+    {
+      "anio": 2021,
+      "monto": 119810040.0
+    },
+    {
+      "anio": 2022,
+      "monto": 99210874.0
+    },
+    {
+      "anio": 2023,
+      "monto": 108590939.0
+    },
+    {
+      "anio": 2024,
+      "monto": 80380664.0
+    },
+    {
+      "anio": 2025,
+      "monto": 97134910.0
+    }
+  ],
+  "plantillas_ejemplo": {
+    "tdr": "# TÉRMINOS DE REFERENCIA (TDR)\n## Contratación de Servicio\n\n> Borrador base generado por ContrataRadar. Asistente de estructuración; no\n> reemplaza revisión legal ni criterio del área usuaria. Completar los campos [ ].\n\n**Entidad contratante:** Municipalidad Provincial de Arequipa\n**Tipo de procedimiento (referencial):** Adjudicación Simplificada\n**Monto referencial (referencial):** S/ 454359.45\n**Código de referencia:** PROC-2018-00000\n\n### 1. Denominación de la contratación\nServicio para Arequipa — paquete 0\n\n### 2. Finalidad pública\n[ ] Describir el interés público que se satisface y su vínculo con los\nobjetivos institucionales y el PAC.\n\n### 3. Antecedentes\n[ ] Necesidad que origina la contratación y referencias previas.\n\n### 4. Objetivos\n- **Objetivo general:** [ ]\n- **Objetivos específicos:** [ ]\n\n### 5. Alcance y descripción del servicio\n[ ] Detallar actividades, metodología y supuestos. Para consultoría, precisar\nproductos por fase.\n\n### 6. Entregables y cronograma\n| N° | Entregable | Plazo | % de pago |\n|----|------------|-------|-----------|\n| 1  | [ ]        | [ ]   | [ ]       |\n| 2  | [ ]        | [ ]   | [ ]       |\n\n### 7. Plazo de ejecución y lugar\n- **Plazo:** [ ] días calendario.\n- **Lugar de prestación:** [ ]\n\n### 8. Perfil del proveedor y requisitos de calificación\n[ ] Formación, experiencia, RNP vigente, no estar impedido de contratar.\n\n### 9. Sistema y forma de pago\n[ ] Suma alzada / precios unitarios. Pagos contra conformidad de entregables.\n\n### 10. Conformidad\n[ ] Área responsable de otorgar la conformidad y plazo para emitirla.\n\n### 11. Penalidades\n[ ] Penalidad por mora y otras penalidades, con fórmula de cálculo.\n\n### 12. Anexos y referencias normativas\n- Ley N.° 32069, Ley General de Contrataciones Públicas, y su Reglamento.\n- [ ] Otros anexos técnicos.\n\n---\n**Checklist de consistencia (revisar antes de remitir):**\n- [ ] Objeto de la contratación claramente delimitado\n- [ ] Finalidad pública sustentada\n- [ ] Alcance y actividades / características técnicas completas\n- [ ] Entregables y cronograma definidos\n- [ ] Plazo de ejecución y lugar de prestación\n- [ ] Perfil del proveedor / requisitos de calificación\n- [ ] Sistema y forma de pago\n- [ ] Conformidad: área responsable y procedimiento\n- [ ] Penalidades (mora y otras) y su forma de cálculo\n- [ ] Anexos y referencias normativas",
+    "eett": "# ESPECIFICACIONES TÉCNICAS (EETT)\n## Adquisición de Bien\n\n> Borrador base generado por ContrataRadar. Asistente de estructuración; no\n> reemplaza revisión legal ni criterio del área usuaria. Completar los campos [ ].\n\n**Entidad contratante:** Ministerio del Interior\n**Tipo de procedimiento (referencial):** Subasta Inversa Electrónica\n**Monto referencial (referencial):** S/ 146798.55\n**Código de referencia:** PROC-2018-00000\n\n### 1. Denominación del bien\nBien para Interior — paquete 0\n\n### 2. Finalidad pública\n[ ] Vínculo con la necesidad institucional y el PAC.\n\n### 3. Características técnicas del bien\n| Característica | Especificación mínima | Unidad |\n|---------------|-----------------------|--------|\n| [ ]           | [ ]                   | [ ]    |\n\n### 4. Cantidad y presentación\n[ ] Cantidad, embalaje y unidades de medida.\n\n### 5. Plazo y lugar de entrega\n- **Plazo de entrega:** [ ] días calendario.\n- **Lugar de entrega:** [ ]\n\n### 6. Garantía\n[ ] Tipo y período de garantía comercial / técnica.\n\n### 7. Requisitos del proveedor\n[ ] RNP vigente, no estar impedido, experiencia y documentación.\n\n### 8. Forma de pago y conformidad\n[ ] Pago contra conformidad de recepción por el área usuaria.\n\n### 9. Penalidades\n[ ] Penalidad por mora y otras, con fórmula de cálculo.\n\n### 10. Referencias normativas\n- Ley N.° 32069, Ley General de Contrataciones Públicas, y su Reglamento.\n\n---\n**Checklist de consistencia (revisar antes de remitir):**\n- [ ] Objeto de la contratación claramente delimitado\n- [ ] Finalidad pública sustentada\n- [ ] Alcance y actividades / características técnicas completas\n- [ ] Entregables y cronograma definidos\n- [ ] Plazo de ejecución y lugar de prestación\n- [ ] Perfil del proveedor / requisitos de calificación\n- [ ] Sistema y forma de pago\n- [ ] Conformidad: área responsable y procedimiento\n- [ ] Penalidades (mora y otras) y su forma de cálculo\n- [ ] Anexos y referencias normativas"
+  }
+}
